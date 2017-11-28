@@ -26,6 +26,13 @@ p oyster.balance
 # p oyster.touch_out
 
 #part 9
-p 'expect an error message when insufficient funds'
-p oyster.touch_in
-p 'insufficient funds'
+# p 'expect an error message when insufficient funds'
+# p oyster.touch_in
+# p 'insufficient funds'
+
+#part10
+# p oyster.top_up(5)
+# p oyster.touch_in
+# p oyster.touch_out
+# p oyster.deduct(2)
+# p oyster.balance == 3

@@ -18,7 +18,8 @@ describe Oystercard do
 
 	it 'can deduct money' do
 		subject.top_up 5
-		expect {subject.deduct(5)}.to change{ subject.balance }.by (-5)
+		subject.touch_in
+		expect {subject.touch_out}.to change{ subject.balance }.by (-Oystercard::MINIMUM_FARE)
 	end
 
   it "initially is not in journey" do
@@ -42,4 +43,6 @@ describe Oystercard do
     subject.balance <= Oystercard::MINIMUM_FARE
     expect { subject.touch_in }.to raise_error "Insufficient funds"
   end
+
+
 end
