@@ -2,7 +2,7 @@ require './lib/oystercard'
 
 # parts 4-5
 # # new oyster card
-# p oyster = Oystercard.new
+p oyster = Oystercard.new
 # # # should display a balance of 0
 # p oyster.balance
 # # add some money
@@ -19,3 +19,6 @@ require './lib/oystercard'
 #deduct money
 # p oyster.deduct(4)
 # p oyster.balance
+
+#part 8
+p oyster.in_journey?

@@ -20,4 +20,8 @@ describe Oystercard do
 		subject.top_up 5
 		expect {subject.deduct(5)}.to change{ subject.balance }.by (-5)
 	end
+
+  it "is in journey" do
+    expect(subject.in_journey?).to eq true
+  end
 end
