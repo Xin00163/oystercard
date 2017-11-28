@@ -7,12 +7,17 @@ describe Oystercard do
 	end
 
 	it 'can top up' do
-		expect{ subject.add_money 5 }.to change{ subject.balance }.by 5
+		expect{ subject.top_up 5 }.to change{ subject.balance }.by 5
 	end
 
-	it 'has a balance limit of 90 Pounds' do
+	it 'has a balance limit of 90 pounds' do
 		maximum_balance = Oystercard::MAXIMUM_BALANCE
-		subject.add_money maximum_balance
-		expect{ subject.add_money 1 }.to raise_error 'The balance limit is 90 pounds'
+		subject.top_up maximum_balance
+		expect{ subject.top_up 1 }.to raise_error 'The balance limit is 90 pounds'
+	end
+
+	it 'can deduct money' do
+		subject.top_up 5
+		expect {subject.deduct(5)}.to change{ subject.balance }.by (-5)
 	end
 end

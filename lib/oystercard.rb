@@ -7,11 +7,15 @@ class Oystercard
 		@balance_limit = 90
 	end
 
-	def add_money(amount)
+	def top_up(amount)
 		raise 'The balance limit is 90 pounds' if balance_full?(amount)
 		@balance += amount
 	end
 
+	def deduct(amount)
+		@balance -= amount
+	end
+	
 	private
 	def balance_full?(amount)
 		(@balance + amount) > MAXIMUM_BALANCE
