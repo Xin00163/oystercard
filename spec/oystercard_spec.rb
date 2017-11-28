@@ -26,13 +26,20 @@ describe Oystercard do
   end
 
 	it "touches in" do
+    subject.top_up(5)
 		subject.touch_in
 		expect(subject.in_journey).to be true
 	end
 
 	it "touches out" do
+    subject.top_up(5)
 		subject.touch_in
 		subject.touch_out
 		expect(subject.in_journey).to be false
 	end
+
+  it "raises an error if insufficient funds" do
+    subject.balance <= Oystercard::MINIMUM_FARE
+    expect { subject.touch_in }.to raise_error "Insufficient funds"
+  end
 end

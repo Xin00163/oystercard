@@ -4,7 +4,7 @@ require './lib/oystercard'
 # # new oyster card
 p oyster = Oystercard.new
 # # # should display a balance of 0
-# p oyster.balance
+p oyster.balance
 # # add some money
 # p oyster.top_up(5)
 # # # balance should now return 5
@@ -22,4 +22,10 @@ p oyster = Oystercard.new
 
 #part 8
 # p oyster.in_journey?
-oyster.touch_in?
+# p oyster.touch_in
+# p oyster.touch_out
+
+#part 9
+p 'expect an error message when insufficient funds'
+p oyster.touch_in
+p 'insufficient funds'
