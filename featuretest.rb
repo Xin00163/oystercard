@@ -1,13 +1,14 @@
 require './lib/oystercard'
+require './lib/journey'
 
 # parts 4-5
-# # new oyster card
-p oyster = Oystercard.new
-# # # should display a balance of 0
-p oyster.balance
+# new oyster card
+# p oyster = Oystercard.new
+# should display a balance of 0
+# p oyster.balance
 # # add some money
 # p oyster.top_up(5)
-# # # balance should now return 5
+# balance should now return 5
 # p oyster.balance
 
 # part 6
@@ -36,3 +37,7 @@ p oyster.balance
 # p oyster.touch_out
 # p oyster.deduct(2)
 # p oyster.balance == 3
+
+#part 11
+p journey = Journey.new
+p journey.entry_station
