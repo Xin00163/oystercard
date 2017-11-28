@@ -1,5 +1,10 @@
-class Journey
-  def entry_station
 
-  end
+class Journey
+  # attr_reader :entry_station
+  #
+  # def initialize
+  #   @entry_station = entry_station
+  # end
+  #
+
 end
