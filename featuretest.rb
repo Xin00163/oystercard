@@ -21,4 +21,5 @@ p oyster = Oystercard.new
 # p oyster.balance
 
 #part 8
-p oyster.in_journey?
+# p oyster.in_journey?
+oyster.touch_in?
