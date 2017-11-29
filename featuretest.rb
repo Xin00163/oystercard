@@ -46,3 +46,8 @@ require './lib/journey'
 # # part 12
 # oyster.touch_in(station)
 # oyster.touch_out(station)
+#
+# # part 13
+p station = Station.new("Victoria", "1")
+p station.name
+p station.zone
