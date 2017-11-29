@@ -3,6 +3,7 @@ require_relative 'journey'
 class Oystercard
 	attr_reader :balance
 	attr_reader :entry_station
+	attr_reader :exit_station
 	STARTING_BALANCE = 0
 	MAXIMUM_BALANCE = 90
   MINIMUM_FARE = 1
@@ -24,9 +25,10 @@ class Oystercard
 		@entry_station = station
 	end
 
-	def touch_out
+	def touch_out(station)
 		deduct(MINIMUM_FARE)
-		@entry_station = nil #Not in journey any more.
+		@entry_station = nil
+		@exit_station = station #Not in journey any more.
 	end
 
 	def in_journey?
