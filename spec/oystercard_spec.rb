@@ -1,8 +1,8 @@
 require 'oystercard.rb'
+require 'journey.rb'
 
 describe Oystercard do
-	let(:entry_station){ double :station }
-	let(:exit_station){ double :station }
+	let(:station) {double(:my_station, name: 'name')}
 
 	context "initial status" do
 		it 'has no money at the beginning' do
@@ -27,31 +27,28 @@ describe Oystercard do
 
 		it 'can deduct money' do
 			subject.top_up 5
-			subject.touch_in(entry_station)
-			expect {subject.touch_out(exit_station)}.to change{ subject.balance }.by (-Oystercard::MINIMUM_FARE)
+			subject.touch_in(station)
+			expect {subject.touch_out(station)}.to change{ subject.balance }.by (-Oystercard::MINIMUM_FARE)
 		end
 	end
 
 	describe "#touch_in & out" do
-
 		context "insufficient funds" do
 		  it "raises an error if insufficient funds" do
 		    subject.balance < Oystercard::MINIMUM_FARE
-		    expect { subject.touch_in(entry_station) }.to raise_error "Insufficient funds"
+		    expect { subject.touch_in(station) }.to raise_error "Insufficient funds"
 		  end
 		end
 		context "sufficient funds" do
 			before do
 				subject.top_up(Oystercard::MINIMUM_FARE)
-				subject.touch_in(entry_station)
+				subject.touch_in(station)
 			end
-
 			it "touches in" do
 				expect(subject.in_journey?).to eq true
 			end
-
 			it "touches out" do
-				subject.touch_out(exit_station)
+				subject.touch_out(station)
 				expect(subject.in_journey?).to be false
 			end
 		end
@@ -61,17 +58,23 @@ describe Oystercard do
 describe "station" do
 	it 'stores the entry station' do
 		subject.top_up(5)
-		subject.touch_in(entry_station)
-		expect(subject.entry_station).to eq entry_station
+		subject.touch_in(station)
+		expect(subject.entry_station).to eq station.name
 	end
 
 	it 'stores the exit station' do
 		subject.top_up(5)
-		subject.touch_in(entry_station)
-		subject.touch_out(exit_station)
-		expect(subject.exit_station).to eq exit_station
+		subject.touch_in(station)
+		subject.touch_out(station)
+		expect(subject.exit_station).to eq station.name
+	end
+
+
+	it 'stores one journey' do
+		subject.top_up(5)
+		subject.touch_in(station)
+		expect{subject.touch_out(station)}.to change { subject.journeys.size }.by 1
 	end
 end
-
 
 end
