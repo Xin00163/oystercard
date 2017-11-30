@@ -40,13 +40,6 @@ class Oystercard
 		@balance -= fare
 	end
 
-	# def insufficient_funds?
-	# 	@balance < Journey::MINIMUM_FARE
-	# end
-
-	# def balance_full?(amount)
-	# 	(@balance + amount) > MAXIMUM_BALANCE
-	# end
 
 	def reset_journey
 		journey_log.finish(nil)

@@ -1,6 +1,6 @@
 class JourneyLog
 
-  attr_reader :current_journey
+  attr_reader :current_journey, :journeys
 
   def initialize(journey_class = Journey)
     @journey_class = journey_class
@@ -17,9 +17,6 @@ class JourneyLog
     @journeys << @current_journey
   end
 
-  def journeys
-    @journeys
-  end
 
   def charge
     @current_journey.fare
@@ -27,7 +24,9 @@ class JourneyLog
 
   def reset
     @current_journey = nil
+
   end
+
 
 
 
