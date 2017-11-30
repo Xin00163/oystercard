@@ -11,7 +11,8 @@ class Journey
   end
 
   def fare
-    return PENALTY_FARE unless complete?
+    # return unless complete?
+    complete? ? MINIMUM_FARE : PENALTY_FARE
   end
 
   def end_journey(exit_station = nil)

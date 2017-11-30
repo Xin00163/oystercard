@@ -14,13 +14,13 @@ class Oystercard
 	end
 
 	def top_up(amount)
-		raise 'The balance limit is 90 pounds' if balance_full?(amount)
+		raise 'The balance limit is 90 pounds' if (@balance + amount) > MAXIMUM_BALANCE
 		@balance += amount
 	end
 
 
 	def touch_in(station)
-    raise "Insufficient funds" if insufficient_funds?
+    raise "Insufficient funds" if @balance < Journey::MINIMUM_FARE
 		reset_journey if journey_log.current_journey != nil
 		journey_log.start(station)
 		self
@@ -40,13 +40,13 @@ class Oystercard
 		@balance -= fare
 	end
 
-	def insufficient_funds?
-		@balance < Journey::MINIMUM_FARE
-	end
+	# def insufficient_funds?
+	# 	@balance < Journey::MINIMUM_FARE
+	# end
 
-	def balance_full?(amount)
-		(@balance + amount) > MAXIMUM_BALANCE
-	end
+	# def balance_full?(amount)
+	# 	(@balance + amount) > MAXIMUM_BALANCE
+	# end
 
 	def reset_journey
 		journey_log.finish(nil)

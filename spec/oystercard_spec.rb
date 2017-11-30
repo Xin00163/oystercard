@@ -6,8 +6,8 @@ describe Oystercard do
   let(:entry_station) { double :station, zone: 1 }
   let(:exit_station)  { double :station, zone: 1 }
   let(:journey) {double :journey }
-  subject(:card) { described_class.new(20, journey_log = JourneyLog.new) }
-  subject(:empty_card) { described_class.new }
+  subject(:card) { described_class.new(20)}
+  subject(:empty_card) {described_class.new}
 
 		it 'has no money at the beginning' do
 			expect(empty_card.balance).to eq Oystercard::DEFAULT_BALANCE
@@ -15,21 +15,21 @@ describe Oystercard do
 		it 'should have an empty list of journeys by default' do
 	    expect(card.journey_log.journeys).to be_empty
 	  end
-end
 
-describe "#top_up" do
+
+context "#top_up" do
 	it 'can top up' do
 		expect{ card.top_up(5)}.to change{ card.balance }.by 5
 	end
 
 	it 'will raise an error when the balance is more than the limit' do
 		maximum_balance = Oystercard::MAXIMUM_BALANCE
-		card.top_up maximum_balance
-		expect{ card.top_up(1)}.to raise_error 'The balance limit is 90 pounds'
+		expect{ card.top_up(maximum_balance)}.to raise_error 'The balance limit is 90 pounds'
 	end
 end
 
-describe "#touch_in" do
+context "#touch_in" do
+
 	it 'should remeber the statiion after touch in' do
 		card.touch_in(entry_station)
 		expect(card.journey_log.current_journey.entry_station).to eq entry_station
@@ -37,8 +37,7 @@ describe "#touch_in" do
 
 
 	it 'raises an error if insufficient funds' do
-	 card.balance < Oystercard::MINIMUM_FARE
-	 expect { card.touch_in(entry_station) }.to raise_error "Insufficient funds"
+	 expect { empty_card.touch_in(entry_station) }.to raise_error "Insufficient funds"
  	end
 
 	it 'deduct penalty fee when you touch in twice' do
@@ -47,7 +46,7 @@ describe "#touch_in" do
 	end
 end
 
-describe "#touch_out" do
+context "#touch_out" do
 before {card.touch_in(entry_station)}
 
 	it 'should deduct journey fare' do
@@ -63,4 +62,5 @@ before {card.touch_in(entry_station)}
 	  card.touch_out(exit_station)
 	  expect{ card.touch_out(entry_station) }.to change{ card.balance }.by(-(Journey::PENALTY_FARE))
 	end
+end
 end
